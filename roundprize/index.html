@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	 <style>
+    	.w1200{width: 1200px;margin: 0 auto;}
+        .lucky-draw-body{
+            width:100%;height:800px;margin-bottom: 30px; 
+            background:url('makemoney/lucky_draw_page_bg.gif') center center;
+        }
+
+        .lucky-draw-left{width:580px;height:580px;top:105px;}
+        .lucky-draw-wheel{left:0;top:0;width:580px;height:580px;overflow:hidden;}
+        .lucky-draw-point{left:50%;top:-11px;width:37px;height:51px;margin-left: -14px;z-index:2;}
+        .lucky-draw-start{left:0;top:0;right:0;bottom:0;margin:auto;width:133px;height:133px;z-index:2;overflow:hidden;}
+
+        .lucky-draw-right{
+            width:530px;height:455px;margin-top:150px;
+            background:url('makemoney/lucky_draw_page_text_bg.png') 0 0 no-repeat;
+        }
+
+        .lucky-draw-right dl{padding-top: 180px;padding-left:5px;}
+        .lucky-draw-right dt{font-size:18px;font-weight:bold;}
+        .lucky-draw-right dd{font-size:14px;line-height:1.5;padding-top:28px;padding-left:25px;}
+
+        .lucky-draw-result-free{width: 690px;height: 480px;padding-top: 50px;display: none;}
+        .lucky-draw-result-free .title{font-size: 52px;font-weight: bold;}
+        .lucky-draw-result-free .coupon{width: 312px;height: 31px;border: 1px dashed #000;color: #333;border-radius: 3px;margin: 20px auto 25px;line-height: 31px;}
+        .lucky-draw-result-free .link a{height: 40px;padding: 10px 30px;line-height: 35px;font-size: 18px; background: #000; color: #fff;border-radius: 5px;}
+         .lucky-draw-result-free .link a:hover{background: #fff; color:#000; border:1px #000 solid; }
+        .lucky-draw-result-free dl{padding-left: 125px;}
+        .lucky-draw-result-free dl dt{color: #333;padding-bottom: 5px;}
+        .lucky-draw-result-free dl dd{line-height: 1.5;}
+        .lucky-draw-result-free .screenshot{padding-top: 30px;}
+        
+        .lucky-draw-result-common{width: 690px;height: 400px;padding-top: 130px;display: none;}
+        .lucky-draw-result-common  .f34{font-size: 34px!important;}
+        .lucky-draw-result-common .title{font-size: 52px;font-weight: bold;}
+        .lucky-draw-result-common .sub-title{font-size: 28px;padding-top: 25px;}
+        .lucky-draw-result-common .point{width: 235px;margin: auto;line-height: 1;padding-bottom: 15px; margin-left: 35%;}
+        .lucky-draw-result-common .point strong{font-size: 82px;}
+        .lucky-draw-result-common .point span{font-size: 24px;}
+        .lucky-draw-result-common .coupon{height: 40px;line-height: 40px;border: 1px dashed #000;font-size: 24px;padding: 0 15px;font-weight: 700;background: #fff;margin: 20px auto;}
+        .lucky-draw-result-common .desc{color: #0a2e4d;}
+        .lucky-draw-result-common .link{right: 40%;bottom: 20px;}
+        .lucky-draw-result-common .link a{text-decoration: underline;color: #333;}
+        
+        .lucky-draw-result-invild{width: 690px;height: 350px;padding-top: 180px;display: none; }
+
+
+        .lucky-draw-result-invild .title{font-size: 54px; font-weight: bold;}
+        .lucky-draw-result-invild .desc{font-size: 18px;padding-top: 35px; color: #000;}
+        .lucky-draw-result-invild .link{right: 40%;bottom: 20px;}
+        .lucky-draw-result-invild .link a{text-decoration: underline;}
+
+        .common{min-width: 1200px;}
+        .pr{position: relative;}
+        .pa{position: absolute;}
+        .clearfox{display: block;}
+        .fl{float: left;}
+        .fr{float: right;}
+        .mt30{margin-top: 30px;}
+        .mt50{margin-top: 50px;}
+        .pr10{padding-right: 10px;}
+        .pt20{padding-top: 20px;}
+        .pb20{padding-bottom: 20px;}
+        .tc{text-align: center;}
+
+
+    </style>
+        <div class="lucky-draw-body tc" id="mainBox">
+            <div class="lucky-draw-main w1200 pr clearfix">
+                <div class="lucky-draw-left fl pr">
+                    <div class="lucky-draw-wheel pa" id="js_rotatePanel"><img src="makemoney/lucky_draw_wheel.png?2016102401"></div>
+                    <div class="lucky-draw-point pa"><img src="makemoney/lucky_draw_point.png"></div>
+                    <div class="lucky-draw-start pa" id="js_start"><a href="javascript:;"><img src="makemoney/lucky_draw_start.png"></a></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 抽奖结果-free -->
+        <div class="lucky-draw-result-free pr">
+            <h6 class="title tc">CONGRATULATIONS!</h6>
+            <p class="coupon f16 tc">Your coupon code: <strong>GFXXXXXXXXXXXX</strong></p>
+            <p class="link tc"><a href="#" class="btn_normal">USE IT</a></p>
+            <dl class="pt20">
+                <dt class="f16">NOTE:</dt>
+                <dd class="f14">The coupon is only available for you shared products. <br> You can choose it in</dd>
+            </dl>
+            <p class="screenshot tc"><img src="makemoney/coupon_screenshot.png"></p>
+        </div>
+
+        <!-- {*抽奖结果-point*} -->
+        <div class="lucky-draw-result-point lucky-draw-result-common pr">
+            <h6 class="title tc pb20">CONGRATULATIONS!</h6>
+            <p class="sub-title tc pb20">You have gained</p>
+            <p class="point clearfix"><strong class="fl" style="font-size: 90px;font-weight: bold;">50</strong><span class="fl">points</span></p>
+            <p class="desc f18 tc mt20">Still want to get it for free, invite friends to<br>help you immediately.</p>
+            <p class="link pa f18"><a href="{http_url url='/get-it-free-intruduction.html'}">Learn how to do it > </a></p>
+        </div>
+
+        <!-- {*抽奖结果-coupon*} -->
+        <div class="lucky-draw-result-coupon lucky-draw-result-common tc pr">
+            <h6 class="title tc pb20">CONGRATULATIONS!</h6>
+            <p class="sub-title tc pb20">You have gained</p>
+            <p class="coupon tc dib">15% off coupon</p>
+			<p class="desc f16 tc">Please check it in <a href="{http_url url='/m-users-a-coupon_points.htm'}" style="color:red; text-decoration: underline;"><strong>ACCOUNT CENTER</strong></a></p>
+            <p class="desc f18 tc mt50">Still want to get it for free, invite friends to<br>help you immediately.</p>
+            <p class="link pa f18"><a href="{http_url url='/get-it-free-intruduction.html'}">Learn how to do it > </a></p>
+        </div>
+
+        <!-- {*抽奖结果-未中奖*} -->
+        <div class="lucky-draw-result-unlucky lucky-draw-result-invild pr">
+            <h6 class="title tc">LUCKY NEXT TIME</h6>
+            <p class="desc tc">Never mind, sill have chance to get it for free?<br>Just invite friends to Register in Dezzal and complete<br>any order, you will get it for fress.</p>
+            <p class="link pa f18"><a href="{http_url url='/get-it-free-intruduction.html'}">Learn how to do it > </a></p>
+        </div> 
+        
+        <!-- {*抽奖结果-机会用完*} -->
+        <div class="lucky-draw-result-nochance lucky-draw-result-invild pr">
+            <h6 class="title tc">NO MORE CHANCE</h6>
+            <p class="desc tc">You will have one more chance to play lucky draw after<br> completing any order.</p>
+            <p class="link pa f18"><a href="{http_url url='/get-it-free-intruduction.html'}">Learn how to do it > </a></p>
+        </div>   
+
+    <script src="makemoney/jquery-3.1.1.min.js"></script>    
+    <script src="makemoney/jquery.Rotate.2.2.min.js"></script>
+    <script src="makemoney/prize.js?2016102501"></script>    
+
+    <script> 
+        rotateFn.init({
+            url : "data.json",
+            startBtn : $("#js_start"),
+            rotateObj : $("#js_rotatePanel"),
+            rotateNum : 5
+        });
+    </script>
+</body>
+</html>
