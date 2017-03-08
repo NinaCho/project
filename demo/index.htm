@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="dns-prefetch" href="google.com">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+	<title>时间处理收集</title>
+	<!–[if lt IE 9]>
+<script src=”http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js”></script>
+<![endif]–>
+	<style type="text/css">
+		@keyframes myfirst{
+			/*from{background: #ddd;}
+			to{background: #000;}*/
+			0%   {background: red; left:0px; top:0px;}
+			25%  {background: yellow; left:200px; top:0px;}
+			50%  {background: blue; left:200px; top:200px;}
+			75%  {background: green; left:0px; top:200px;}
+			100% {background: red; left:0px; top:0px;}
+		}
+		@-moz-keyframes myfirst{
+			0%   {background: red; left:0px; top:0px;}
+			25%  {background: yellow; left:200px; top:0px;}
+			50%  {background: blue; left:200px; top:200px;}
+			75%  {background: green; left:0px; top:200px;}
+			100% {background: red; left:0px; top:0px;}
+		}
+		@-webkit-keyframes myfirst{
+			0%   {background: red; left:0px; top:0px;}
+			25%  {background: yellow; left:200px; top:0px;}
+			50%  {background: blue; left:200px; top:200px;}
+			75%  {background: green; left:0px; top:200px;}
+			100% {background: red; left:0px; top:0px;}
+		}
+		@-o-keyframes myfirst{
+			0%   {background: red; left:0px; top:0px;}
+			25%  {background: yellow; left:200px; top:0px;}
+			50%  {background: blue; left:200px; top:200px;}
+			75%  {background: green; left:0px; top:200px;}
+			100% {background: red; left:0px; top:0px;}
+		}
+
+		.keyframes{
+			width: 100px;
+			height: 100px;
+			background: #999;
+			position:relative;
+			animation: myfirst 5s;
+			-moz-animation: myfirst 5s;
+			-webkit-animation: myfirst 5s;
+			-o-animation: myfirst 5s;
+			backface-visibility: hidden;
+		}
+		.line{border-left: 1px solid #000; }
+
+		@keyframes mypink{
+			0% {left: 10%}
+			25%  {left: 20%}
+			50%  {left: 30%}
+			75%  {left: 40%}
+			100% {left: 50%}
+		}
+
+
+		@-o-keyframes mypink{
+			0% {left: 10%}
+			25%  {left: 20%}
+			50%  {left: 30%}
+			75%  {left: 40%}
+			100% {left: 50%}
+		}
+
+		@-moz-keyframes mypink{
+			0% {left: 10%}
+			25%  {left: 20%}
+			50%  {left: 30%}
+			75%  {left: 40%}
+			100% {left: 50%}
+		}
+
+		@-webkit-keyframes mypink{
+			0% {left: 10%}
+			25%  {left: 20%}
+			50%  {left: 30%}
+			75%  {left: 40%}
+			100% {left: 50%}
+		}
+		.movepinkpig{
+			position: relative;
+			animation: mypink 1s;
+			-moz-animation: mypink 1s;
+			-webkit-animation: mypink 1s;
+			-o-animation: mypink 1s;
+		}
+
+	.one{
+		width: 400px;
+		height: 400px;
+		display: inline-block;
+		border: solid 1px #000;
+	}
+	.one div {
+		width: 98px;
+		height: 98px;
+		border: solid 1px #000;
+		border-radius: 50%;
+		float: left;
+		text-align: center;
+		line-height: 98px;
+		background: pink;
+	}
+	.two{
+		width: 400px;
+		height: 400px;
+		border: solid 1px #000;
+		display: inline-block;
+		margin-left: 50px;
+	}
+	.two div {
+		width: 98px;
+		height: 98px;
+		border: solid 1px #000;
+		border-radius: 50%;
+		float: left;
+		text-align: center;
+		line-height: 98px;
+		background: pink;
+	}
+
+.egg{width:660px; height:400px; margin:50px auto 20px auto;}
+.egg ul li{z-index:999;}
+.eggList{padding-top:110px;position:relative;width:660px;}
+.eggList li{float:left;background:url(images/egg_1.png) no-repeat bottom;width:158px;height:187px;cursor:pointer;position:relative;margin-left:35px;}
+.eggList li span{position:absolute; width:30px; height:60px; left:68px; top:64px; color:#ff0; font-size:42px; font-weight:bold}
+.eggList li.curr{background:url(images/egg_2.png) no-repeat bottom;cursor:default;z-index:300;}
+.eggList li.curr sup{position:absolute;background:url(images/img-4.png) no-repeat;width:232px; height:181px;top:-36px;left:-34px;z-index:800;}
+.hammer{background:url(images/img-6.png) no-repeat;width:74px;height:87px;position:absolute; text-indent:-9999px;z-index:150;left:168px;top:100px;}
+.resultTip{position:absolute; background:#ffc ;width:148px;padding:6px;z-index:500;top:200px; left:10px; color:#f60; text-align:center;overflow:hidden;display:none;z-index:500;}
+.resultTip b{font-size:14px;line-height:24px;}
+	</style>
+</head>
+
+<div id="main">
+	<div class="egg">
+		<ul class="eggList">
+			<p class="hammer" id="hammer">锤子</p>
+			<p class="resultTip" id="resultTip"><b id="result"></b></p>
+			<li><span>1</span><sup></sup></li>
+			<li><span>2</span><sup></sup></li>
+			<li><span>3</span><sup></sup></li>
+		</ul>
+	</div>
+</div>
+<body>
+	
+	<div class = 'one'>
+	<div draggable = "true">1</div>
+	<div draggable = "true">2</div>
+	<div draggable = "true">3</div>
+	<div draggable = "true">4</div>
+	<div draggable = "true">5</div>
+	<div draggable = "true">6</div>
+	<div draggable = "true">7</div>
+	<div draggable = "true">8</div>
+  </div>
+  <div class = 'two'>
+	
+  </div>
+
+	
+	<div>排序:
+		<button class="add">add</button>
+		<div class="item">
+		</div>
+	</div>
+	<div>
+		 <canvas id="canvas" style="width: 400px; height: 200px; background: #000;">Canvas is not supported in your browser.</canvas>
+	</div>
+	<div>
+		字体：
+		<div class="line"></div>
+		<div class="drag" style="width: 100px; height: 100px; background: red; margin-bottom: 10px; display: inline-block;">拖拽1</div>
+		<div class="drag" style="width: 100px; height: 100px; background: red; margin-bottom: 10px; display: inline-block;">拖拽2</div>
+		<div class="drag" style="width: 100px; height: 100px; background: red; margin-bottom: 10px; display: inline-block;">拖拽3</div>
+	</div>
+	<div>
+		动画：
+		<div class="keyframes"></div>
+	</div>
+	
+	<div class="">click</div>
+	<script src="mypulg.js"></script>
+	<script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+	
+	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<script type="text/javascript" src="pulg.js"></script>
+	 <script>
+
+	 function eggClick(obj) {
+	var _this = obj;
+	$.getJSON("data.php",function(res){
+		if(_this.hasClass("curr")){
+			alert("蛋都碎了，别砸了！刷新再来.");
+			return false;
+		}
+		//_this.unbind('click');
+		$(".hammer").css({"top":_this.position().top-55,"left":_this.position().left+185});
+		$(".hammer").animate({
+			"top":_this.position().top-25,
+			"left":_this.position().left+125
+			},30,function(){
+				_this.addClass("curr"); //蛋碎效果
+				_this.find("sup").show(); //金花四溅
+				$(".hammer").hide();
+				$('.resultTip').css({display:'block',top:'100px',left:_this.position().left+45,opacity:0}).animate({top: '50px',opacity:1},300,function(){
+					if(res.msg==1){
+						$("#result").html("恭喜，您中得"+res.prize+"!");
+					}else{
+						$("#result").html("很遗憾,您没能中奖!");
+					}
+				});	
+			}
+		);
+	});
+}
+
+
+$(".eggList li").click(function() {
+	$(this).children("span").hide();
+	eggClick($(this));
+});
+
+$(".eggList li").hover(function() {
+	var posL = $(this).position().left + $(this).width();
+	$("#hammer").show().css('left', posL);
+})
+	//获取所有one里面的小盒子分别绑定拖拽事件
+	var boxs = document.querySelectorAll(".one div");
+	var one = document.querySelector(".one");
+	//目标元素
+	var two = document.querySelector(".two");
+	//临时的盒子，用于存放当前拖拽的元素
+	var temp = null; 
+	for(var i = 0;i < boxs.length;i++){
+		boxs[i].ondragstart = function(){
+			temp = this;
+			console.log(temp);
+
+		}
+		//拖拽结束，清空temp
+		boxs[i].ondragend = function(){
+			temp = null;
+			console.log(temp);
+		}
+	}
+	//目标元素拖拽事件
+	two.ondragover = function(e){
+		//阻止拖拽默认行为
+		e.preventDefault();
+	}
+	
+	two.ondrop = function(){
+		this.appendChild(temp);
+		
+	}
+	//目标元素拖拽事件
+	one.ondragover = function(e){
+		//阻止拖拽默认行为
+		e.preventDefault();
+	}
+	
+	one.ondrop = function(){
+		this.appendChild(temp);
+		
+	}
+ </script>
+	<script>
+
+	console.info([1,4,6,7].min());
+
+	$("body").myPlugin({'color': '#265894', 'fontSize':'30px'});
+
+	//拖拽
+	$(".drag").on({
+		mousedown: function(e){
+			var el = $(this);
+			var os = el.offset(),
+			dx = e.pageX-os.left, 
+			dy = e.pageY-os.top;
+		    $(document).on('mousemove.drag', function(e){ el.offset({top: e.pageY-dy, left: e.pageX-dx}); });
+
+		},
+		mouseup: function(e){ 
+			//对齐
+			$(document).off('mousemove.drag'); 
+		}
+	});
+	</script>
+
+	<script>
+		var num ;
+		$(".add").on('click', function(){
+			num = $(".sort").length + 1;
+			$(".item").append('<div class="sort"><i class="num">' + num + '</i> <input type="text"/><button class="del">del</button></div>');
+		});
+
+		$("body").on('click', '.del', function(){
+			this.parentElement.remove();
+			var i = 1;
+		    $(".num").each(function(){
+		    	this.textContent = i;
+		    	i++;
+		    });
+		});
+	</script>
+	<script type="text/javascript">
+		window.requestAnimationFrame = (function(){
+			return window.requestAnimationFrame ||
+				   window.webkitRequestAnimationFrame ||
+				   window.mozRequestAnimationFrame ||
+				   function(callback){
+				   		window.setTimeout(callback,1000/60);
+				   }
+		})();
+
+		var canvas = document.getElementById("canvas"),
+			ctx = canvas.getContext("2d"),
+			cw = window.innerWidth,
+			ch = window.innerHeight,
+			fireworks = [], 
+			particles = [], 
+			hue = 100, 
+			timerTotal = 100, 
+			timerTick = 0;
+
+		canvas.width = cw;
+		canvas.height = ch;
+
+
+		function random(min,max){
+			return Math.random()*(max-min)+min;
+		}
+
+		function caculateDistance(sx,sy,tx,ty){
+			var xDistance = sx-tx,
+				yDistance = sy-ty;
+			return Math.sqrt(Math.pow(xDistance,2)+Math.pow(yDistance,2));
+		}
+
+		function Firework(sx,sy,tx,ty){
+			this.x = sx; 
+			this.y = sy; 
+			this.sx = sx; 
+			this.sy = sy; 
+			this.tx= tx; 
+			this.ty = ty; 
+			this.distanceToTarget = caculateDistance(sx,sy,tx,ty); 
+			this.distanceTraveled = 0; 
+			this.coordinates = []; 
+			this.coordinatesCount = 3;
+			while(this.coordinatesCount--){
+				this.coordinates.push([this.x,this.y]);
+			}
+			this.angle = Math.atan2(ty-sy,tx-sx); 
+			this.speed = 2; 
+			this.acceleration = 1.05 
+			this.brightness = random(50,70); 
+			this.targetRadius = 1; 
+		}
+
+		Firework.prototype.update = function(index){
+			this.coordinates.pop(); 
+			this.coordinates.unshift([this.x,this.y]);
+			
+			if(this.targetRadius<8) {
+				this.targetRadius += 0.3;
+			} else {
+				this.targetRadius = 1;
+			}
+			this.speed *= this.acceleration; 
+			var vx = Math.cos(this.angle)*this.speed,
+				vy = Math.sin(this.angle)*this.speed; 
+			this.distanceTraveled = caculateDistance(this.sx,this.sy,this.x+vx,this.y+vy); 
+			if(this.distanceTraveled>=this.distanceToTarget){
+				createParticles(this.tx,this.ty);
+				fireworks.splice(index,1);
+			}else{
+				this.x += vx;
+				this.y += vy;
+			}
+		}
+
+		this.geyELEMentBCLASsnMme();
+
+
+		Firework.prototype.draw = function(){//烟花起飞的线
+			
+			ctx.beginPath();
+			ctx.moveTo(this.coordinates[this.coordinates.length-1][0],this.coordinates[this.coordinates.length-1][1]);
+			ctx.lineTo(this.x,this.y);
+			ctx.strokeStyle = 'hsl('+hue+',100%,'+this.brightness+'%)';
+			ctx.stroke();
+
+			ctx.beginPath();
+			ctx.arc(this.tx,this.ty,this.targetRadius,0,Math.PI*2);
+			ctx.stroke();
+		}
+
+		function Particle(x,y){
+			this.x = x;
+			this.y = y;
+			this.coordinates = [];
+			this.coordinatesCount = 5;
+			while(this.coordinatesCount--){
+				this.coordinates.push([this.x,this.y]);
+			}
+			this.angle = random(0,2*Math.PI); 
+			this.speed = random(1,10); 
+			this.friction = 0.95 
+			this.gravity = 1; 
+			this.hue = random(hue-20,hue+20); 
+			this.brightness = random(50,80); 
+			this.alpha = 1; 
+			this.decay = random(0.015,0.03); 
+		}
+
+		Particle.prototype.update = function(index){
+			this.coordinates.pop(); 
+			this.coordinates.unshift([this.x,this.y]);
+			this.speed *= this.friction;
+			this.x += Math.cos(this.angle) * this.speed;
+			this.y += Math.sin(this.angle) * this.speed + this.gravity;
+			this.alpha -= this.decay;
+			if(this.alpha<=this.decay){
+				particles.splice(index,1);
+			}
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+
+		Particle.prototype.draw = function(){ //烟花的花
+			ctx.beginPath();
+			ctx.moveTo(this.coordinates[this.coordinates.length-1][0],this.coordinates[this.coordinates.length-1][1]);
+			ctx.lineTo(this.x,this.y);
+			ctx.strokeStyle = 'hsla('+this.hue+',100%,'+this.brightness+'%,'+this.alpha+')';
+			ctx.stroke();
+		}
+                         
+		function createParticles(x,y){
+			var particleCount = 30;
+			while(particleCount--) {
+				particles.push(new Particle(x,y));
+			}
+		}
+
+		function loop(){
+			requestAnimationFrame(loop);
+			hue += 0.5;
+			ctx.globalCompositeOperation = 'destination-out';
+			ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+			ctx.fillRect( 0, 0, cw, ch );
+			ctx.globalCompositeOperation = 'lighter';
+			var i = fireworks.length;
+			while(i--) {
+				fireworks[i].draw();
+				fireworks[i].update(i);
+			}
+			var i = particles.length;
+			while(i--) {
+				particles[i].draw();
+				particles[i].update(i);
+			}
+			if(timerTick >= timerTotal) {
+				fireworks.push(new Firework(cw/2,ch,random(0,cw),random(0,ch/2)));
+				timerTick = 0;
+			} else {
+				timerTick++;
+			}
+		}
+
+		window.onload = loop;
+	</script>
+</body>
+</html>

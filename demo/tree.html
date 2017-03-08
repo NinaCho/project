@@ -1,0 +1,115 @@
+<!doctype html>  
+<html>  
+<head>  
+<meta charset="utf-8" />  
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>  
+<meta name="author" content="sxfenglei">  
+<title>HTML5 手机倒计时摇钱树</title>  
+<style type="text/css">  
+*{margin:0;padding:0}  
+html,body{  
+    position: relative;  
+    width:100%;  
+    height:100%;  
+    background-color:#eee;  
+    overflow:hidden;   
+}  
+#bb{  
+    background-image:url(tree-g3.png);  
+    background-position:no-repeat;  
+    background-size:100% 100%;   
+}  
+.info{  
+    font-size:3rem;  
+    text-align:center;  
+    background-color:rgba(255,255,255,0.3);  
+}  
+#debug{  
+    display:none;  
+}  
+</style>  
+</head>  
+<body id="bb">  
+<div id="debug">  
+摇动了<input type="text" name="txt" id="txt" value="0" />次<br>   
+摇动前时间<input type="text" id="bug" value="" /><br>  
+摇动时间<input type="text" id="bug2" value="" /><br>  
+摇动了<input type="text" id="bug3" value="" />秒<br>  
+倒计时:<input type="text" id="bug4" value="" />秒<br>  
+</div>  
+  
+<div class="info"></div>    
+<script type="text/javascript">   
+//获取页面元素  
+function $(obj){    
+    return  document.querySelector(obj);   
+}  
+  
+//定时器  
+var timer = null;  
+var timeNum = 11;//10秒倒计时  
+function timerFun(){  
+    timeNum -= parseInt(1);  
+    $("#bug4").value = timeNum;  
+    timer = window.setTimeout(timerFun,1000);  
+}   
+   
+//摇动次数  
+var i = 0;   
+//HTML5摇动API  
+if(window.DeviceMotionEvent) {  
+    var speed = 15; //阀值  
+    var x = y = z = lastX = lastY = lastZ = 0;  
+    var startTime = 0;   
+    window.addEventListener('devicemotion', function(){  
+        var acceleration =event.accelerationIncludingGravity;  
+        x = acceleration.x;  
+        y = acceleration.y;  
+        z = acceleration.z;  
+        var dtime = new Date();   
+        if(timeNum<1){  
+            clearTimeout(timer);  
+            //静态摇树  
+            $('#bb').style.backgroundImage = 'url(0.jpg)';  
+            //  
+            $('.info').innerHTML = '恭喜你摇到'+i+'个金币';  
+        }  
+        //摇动  
+        if(Math.abs(x-lastX) > speed || Math.abs(y-lastY) > speed || Math.abs(z-lastZ) > speed) {  
+            //动态摇树  
+            $('#bb').style.backgroundImage = 'url(1.jpg)';  
+            //  
+            if(timeNum<1){  
+                clearTimeout(timer);  
+                //静态摇树  
+                $('#bb').style.backgroundImage = 'url(0.jpg)';  
+                //  
+                $('.info').innerHTML = i;  
+            }else{   
+                //第一次摇动时间  
+                if(startTime == 0){  
+                    startTime = dtime.getTime();  
+                    timerFun();//开启倒计时   
+                }  
+                //次数加1  
+                i += parseInt(1);  
+                $("#txt").value = i;//将次数i赋值给text  
+  
+                var timestamp = dtime.getTime();  
+                var tStr = parseInt(timestamp/1000 - startTime/1000);  
+  
+                $("#bug").value = startTime;  
+                $("#bug2").value = timestamp;  
+                $("#bug3").value = tStr;  
+            }   
+        }  
+  
+        lastX = x;  
+        lastY = y;  
+        lastZ = z;   
+    }, false);  
+}   
+  
+</script>  
+</body>  
+</html> 
