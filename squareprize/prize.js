@@ -15,6 +15,16 @@ var lottery = {
                 $lottery.find(".lottery-unit-" + this.index).addClass("active"); 
             } 
         }, 
+        openPop: function(dom){
+            layer.open({
+              type: 1,
+              skin: 'layui-layer-demo', //样式类名
+              closeBtn: 0, //不显示关闭按钮
+              anim: 2,
+              shadeClose: true, //开启遮罩关闭
+              content: dom
+            });
+        },
         roll: function() {
             var index = this.index; 
             var count = this.count; 
@@ -31,5 +41,38 @@ var lottery = {
         stop: function(index) { 
             this.prize = index; 
             return false; 
-        } 
+        },
+        rollloading: function(){
+            lottery.times += 1;
+            lottery.roll();
+            if (lottery.times > lottery.cycle+10 && lottery.prize==lottery.index) {
+                clearTimeout(lottery.timer);
+                lottery.prize=-1;
+                lottery.times=0;
+                click=false;
+            }else{
+                if (lottery.times<lottery.cycle) {
+                    lottery.speed -= 10;
+
+                }else if(lottery.times==lottery.cycle) {
+                    var index = $("#lottery").attr("prize_id")|0;
+                    lottery.prize = index;    
+                    //弹出框
+
+                }else{
+                    if (lottery.times > lottery.cycle+10 && ((lottery.prize==0 && lottery.index==7) || lottery.prize==lottery.index+1)) {
+                        lottery.speed += 110;
+                    }else{
+                        lottery.speed += 20;
+                    }
+                }
+                if (lottery.speed<40) {
+                    lottery.speed=40;
+                };
+                //console.log(lottery.times+'^^^^^^'+lottery.speed+'^^^^^^^'+lottery.prize);
+                lottery.timer = setTimeout(lottery.rollloading,lottery.speed);
+            }
+            return false;
+                }
+
 };
